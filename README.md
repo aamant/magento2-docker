@@ -1,4 +1,4 @@
-# Install
+# Docker development stack for Magento
 
 ## Install
 
