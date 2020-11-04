@@ -1,0 +1,69 @@
+version: '3'
+
+services:
+  mysql:
+    image: mariadb:10.4
+    volumes:
+      - database:/var/lib/mysql
+      - ./docker/mysql/magento.cnf:/etc/mysql/conf.d/magento.cnf
+      - .:/sources
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: magento
+    privileged: true
+    networks:
+      - default
+    ports:
+      - 3306:3306
+
+  engine:
+    image: aamant/php-7.3-fpm
+    volumes:
+      - .:/sources
+      - static:/sources/pub/static
+      - var:/sources/var
+      - ~/.composer:/var/www/.composer
+#      - ./docker/engine/zzz.ini.dist:/usr/local/etc/php/conf.d/zzz.ini
+    links:
+      - mysql:mysql
+      - elastic
+#    extra_hosts:
+#      - "host.docker.internal:10.211.55.2"
+    environment:
+      - PHP_ENABLE_XDEBUG=false
+      - PHP_ENABLE_BLACKFIRE=false
+      - MAGENTO_DIR=true
+
+  elastic:
+    build:
+        context: docker/elastic
+    environment:
+        - node.name=es01
+        - cluster.name=es-docker-cluster
+        - discovery.type=single-node
+        - http.port=9200
+        - http.cors.allow-origin=http://localhost:1358,http://10.211.55.2:1358
+        - http.cors.enabled=true
+        - http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
+        - http.cors.allow-credentials=true
+    volumes:
+        - elasticdata:/usr/share/elasticsearch/data
+
+  web:
+    image: nginx
+    volumes:
+      - .:/sources
+      - static:/sources/pub/static
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+    links:
+      - engine
+    command: [nginx-debug, '-g', 'daemon off;']
+    working_dir: /sources
+    environment:
+      - VIRTUAL_HOST=domain.test
+
+volumes:
+  static:
+  var:
+  database:
+  elasticdata:

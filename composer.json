@@ -1,0 +1,32 @@
+{
+    "name": "aamant/magento2-docker",
+    "description": "Docker development stack for Magento",
+    "type": "magento2-component",
+    "minimum-stability": "stable",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Amant Arnaud",
+            "email": "contact@arnaudamant.fr"
+        }
+    ],
+    "require": {
+        "magento/magento-composer-installer": "*"
+    },
+    "extra": {
+        "map": [
+            [
+               "docker",
+               "docker"
+            ],
+            [
+                "docker-compose.yml.dist",
+                "docker-compose.yml.dist"
+            ],
+            [
+                "docker-compose.yml.proxy.dist",
+                "docker-compose.yml.proxy.dist"
+            ]
+        ]
+    }
+}
