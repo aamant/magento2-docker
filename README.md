@@ -15,3 +15,12 @@ or if you use jwilder/nginx-proxy
 ## Run
 
 	docker-compose up -d
+	
+## Ignore files
+
+    /docker/
+    !/docker/engine/zzz.ini
+    !/docker/mysql/magento.cnf
+    docker-compose.proxy.yml.dist
+    docker-compose.yml.dist
+    docker-compose.yml
