@@ -24,8 +24,8 @@
                 "docker-compose.yml.dist"
             ],
             [
-                "docker-compose.yml.proxy.dist",
-                "docker-compose.yml.proxy.dist"
+                "docker-compose.proxy.yml.dist",
+                "docker-compose.proxy.yml.dist"
             ]
         ]
     }
