@@ -11,18 +11,24 @@
         }
     ],
     "require": {
-        "magento/magento-composer-installer": "*"
+        "php": ">=7.3",
+        "aamant/composer-copy": "*"
     },
     "extra": {
-        "map": [
-            [
-                "docker-compose.yml.dist",
-                "docker-compose.yml.dist"
-            ],
-            [
+        "map": {
+            "aamant/magento2-docker": [
                 "docker-compose.proxy.yml.dist",
-                "docker-compose.proxy.yml.dist"
+                "docker-compose.yml.dist"
             ]
-        ]
-    }
+        }
+    },
+    "repositories": [
+        {
+            "url": "/Users/arnaud/workspace/repositories/composer-copy",
+            "type": "path",
+            "options": {
+                "symlink": true
+            }
+        }
+    ]
 }
