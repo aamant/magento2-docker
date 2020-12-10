@@ -16,10 +16,6 @@
     "extra": {
         "map": [
             [
-               "docker",
-               "docker"
-            ],
-            [
                 "docker-compose.yml.dist",
                 "docker-compose.yml.dist"
             ],

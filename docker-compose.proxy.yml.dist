@@ -5,7 +5,7 @@ services:
     image: mariadb:10.4
     volumes:
       - database:/var/lib/mysql
-      - ./docker/mysql/magento.cnf.dist:/etc/mysql/conf.d/magento.cnf
+      - ./vendor/aamant/magento2-docker/docker/mysql/magento.cnf.dist:/etc/mysql/conf.d/magento.cnf
       - .:/sources
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -59,7 +59,7 @@ services:
     volumes:
       - .:/sources
       - static:/sources/pub/static
-      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./vendor/aamant/magento2-docker/docker/nginx/nginx.conf:/etc/nginx/nginx.conf
     links:
       - engine
     networks:
