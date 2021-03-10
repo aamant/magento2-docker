@@ -11,24 +11,18 @@
         }
     ],
     "require": {
-        "php": ">=7.3",
-        "aamant/composer-copy": "*"
+        "php": ">=7.3"
     },
     "extra": {
-        "map": {
-            "aamant/magento2-docker": [
+        "map": [
+            [
                 "docker-compose.proxy.yml.dist",
+                "docker-compose.proxy.yml.dist"
+            ],
+            [
+                "docker-compose.yml.dist",
                 "docker-compose.yml.dist"
             ]
-        }
-    },
-    "repositories": [
-        {
-            "url": "/Users/arnaud/workspace/repositories/composer-copy",
-            "type": "path",
-            "options": {
-                "symlink": true
-            }
-        }
-    ]
+        ]
+    }
 }

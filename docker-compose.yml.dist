@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   mysql:
@@ -23,29 +23,27 @@ services:
       - static:/sources/pub/static
       - var:/sources/var
       - ~/.composer:/var/www/.composer
-#      - ./docker/engine/zzz.ini.dist:/usr/local/etc/php/conf.d/zzz.ini
+#      - ./vendor/aamant/magento2-docker/docker/engine/zzz.ini.dist:/usr/local/etc/php/conf.d/zzz.ini
     links:
       - mysql:mysql
       - elastic
-#    extra_hosts:
-#      - "host.docker.internal:10.211.55.2"
     environment:
-      - PHP_ENABLE_XDEBUG=false
-      - PHP_ENABLE_BLACKFIRE=false
-      - MAGENTO_DIR=true
+      PHP_ENABLE_XDEBUG: true
+      #XDEBUG_MODE: debug # develop by default
+      XDEBUG_CONFIG: "
+        client_host=host.docker.internal
+        start_with_request=yes
+        cli_color=1
+      "
+      PHP_ENABLE_BLACKFIRE: false
+      MAGENTO_DIR: true
 
   elastic:
     build:
         context: docker/elastic
     environment:
-        - node.name=es01
-        - cluster.name=es-docker-cluster
-        - discovery.type=single-node
-        - http.port=9200
-        - http.cors.allow-origin=http://localhost:1358,http://10.211.55.2:1358
-        - http.cors.enabled=true
-        - http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
-        - http.cors.allow-credentials=true
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     volumes:
         - elasticdata:/usr/share/elasticsearch/data
 

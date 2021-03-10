@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   mysql:
@@ -30,12 +30,16 @@ services:
     networks:
       - proxy
       - default
-#    extra_hosts:
-#      - "host.docker.internal:10.211.55.2"
     environment:
-      - PHP_ENABLE_XDEBUG=false
-      - PHP_ENABLE_BLACKFIRE=false
-      - MAGENTO_DIR=true
+      PHP_ENABLE_XDEBUG: false
+      #XDEBUG_MODE: debug # develop by default
+      XDEBUG_CONFIG: "
+        client_host=host.docker.internal
+        start_with_request=yes
+        cli_color=1
+      "
+      PHP_ENABLE_BLACKFIRE: false
+      MAGENTO_DIR: true
 
   elastic:
     build:
